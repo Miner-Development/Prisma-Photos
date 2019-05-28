@@ -1,0 +1,11 @@
+DROP DATABASE IF EXISTS photos_db;
+CREATE DATABASE IF NOT EXISTS photos_db;
+
+USE photos_db;
+
+CREATE TABLE photos (
+  id INT AUTO_INCREMENT,
+  photo_name VARCHAR(30) NOT NULL,
+  downloaded BOOLEAN DEFAULT FALSE,
+  PRIMARY KEY (id)
+);
