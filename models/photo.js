@@ -1,18 +1,18 @@
-const Sequelize = require('sequelize');
+const mongoose = require('mongoose');
 
-const sequelize = require('../config/connection.js');
+var Schema = mongoose.Schema;
 
-var Photo = sequelize.define('photo', {
-  photo_name: {
-    type: Sequelize.NUMBER
+var PhotoSchema = new Schema({
+  title: {
+    type: String,
+    required: true
   },
-  downloaded: {
-    type: Sequelize.BOOLEAN
+  number: {
+    type: Number,
+    required: true
   }
-}, {
-  timestamps: false
 });
 
-photo.sync();
+var Photo = mongoose.model('Photo', PhotoSchema);
 
 module.exports = Photo;
