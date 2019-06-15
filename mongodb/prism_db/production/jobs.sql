@@ -1,0 +1,9 @@
+id
+status
+estimated_cost
+total_cost
+invoice_id
+payment_status
+client_id
+event_id
+tag

@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(express.static('public'));
 
-mongoose.connect('mongodb://localhost/prismaPhotos');
+mongoose.connect('mongodb://localhost/prisma');
 
 // GET one photo
 app.get('/photos/:id', (req, res) => {

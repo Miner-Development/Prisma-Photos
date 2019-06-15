@@ -1,3 +1,5 @@
+/mongodb/databases/admin/auth.sql
+
 # Logs
 logs
 *.log
