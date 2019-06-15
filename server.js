@@ -1,30 +1,42 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const logger = require('morgan');
-const mongoose = require('mongoose');
+const express = require('express')
+const bodyParser = require('body-parser')
+const app = express()
+app.use(bodyParser.urlencoded({
+  extended: true
+}))
 
-var db = require('./models');
+const logger = require('morgan')
+const mongoose = require('mongoose')
 
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/prismaPhotos";
+app.use(logger('dev'))
+
+var db = require('./models')
+
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/prisma";
 
 mongoose.Promise = Promise;
 mongoose.connect(MONGODB_URI);
 
 var PORT = process.env.PORT || 3000;
 
-var app = express();
-
-app.use(logger('dev'));
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
 app.use(express.static('public'));
 
 mongoose.connect('mongodb://localhost/prisma');
+// mongoose.connect
+
+
+app.post('/reviews', (req, res) => {
+  console.log( req.body );
+  
+});
+
+// app.get('/reviews/:id', (req, res) => {
+//   db.prism.reviews.getAll()
+// });
 
 // GET one photo
 app.get('/photos/:id', (req, res) => {
-  db.prism_db.Photo.findOne({_id: req.params.id})
+  db.prism.Photo.findOne({_id: req.params.id})
     .then(dbPhoto => {
       res.json(dbPhoto);
     })
