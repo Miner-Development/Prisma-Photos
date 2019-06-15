@@ -1,4 +1,4 @@
-db.users("admin").createUser(
+db.getSiblingDB("admin").createUser(
   {
     "user" : "{{ $username }}",
     "pwd" : "{{ $password }}",
