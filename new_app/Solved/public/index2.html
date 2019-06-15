@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Populate Pics</title>
+
+  <!-- Custom fonts for this template-->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+  <!-- Page level plugin CSS-->
+  <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+  <link href="css/sb-admin.css" rel="stylesheet">
+
+      <!-- Bootstrap CDN -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+      input {
+        display: block;
+        height: 36px;
+        width: 200px;
+        font-size: 24px;
+      }
+      textarea {
+        width: 200px;
+        height: 200px;
+      }
+    </style>
+  </head>
+  <body>
+   <nav> Prisma </nav>
+      <div id="photoform">
+        <form action="/submit" method="post">
+        <h1>Hi User!</h1>
+        <h2>Enter a Note!</h2>
+          <input type="text" name="title" placeholder="Title">
+          <textarea type="text" name="body">Write Note Here</textarea>
+
+          <input type="submit">
+          <a href="/notes">See your notes!</a>
+          <a href="/user">See your profile!</a>
+          <a href="/populateduser">See your profile, populated with notes!</a>
+        </form>
+      </div>
+  </body>
+</html>
+
