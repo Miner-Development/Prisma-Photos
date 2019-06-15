@@ -2,17 +2,17 @@ const mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
 
-var PhotoSchema = new Schema({
-  title: {
-    type: String,
+var ReviewSchema = new Schema({
+  rating: {
+    type: Number,
     required: true
   },
-  number: {
-    type: Number,
+  comment: {
+    type: String,
     required: true
   }
 });
 
-var Photo = mongoose.model('Photo', PhotoSchema);
+var Review = mongoose.model('Review', ReviewSchema);
 
-module.exports = Photo;
+module.exports = Review;
