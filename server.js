@@ -27,45 +27,46 @@ mongoose.connect('mongodb://localhost/prisma');
 
 app.post('/reviews', (req, res) => {
   console.log( req.body );
-  
 });
+
+
 
 // app.get('/reviews/:id', (req, res) => {
 //   db.prism.reviews.getAll()
 // });
 
 // GET one photo
-app.get('/photos/:id', (req, res) => {
-  db.prism.Photo.findOne({_id: req.params.id})
-    .then(dbPhoto => {
-      res.json(dbPhoto);
-    })
-    .catch(err => {
-      res.json(err);
-    });
-});
+// app.get('/photos/:id', (req, res) => {
+//   db.prism.Photo.findOne({_id: req.params.id})
+//     .then(dbPhoto => {
+//       res.json(dbPhoto);
+//     })
+//     .catch(err => {
+//       res.json(err);
+//     });
+// });
 
 // POST one photo
-app.post('/photos/:id', (req, res) => {
-  db.Photo.create(req.body)
-    .then(dbPhoto => {
-      return db.Photo.post({_id: req.params.id}, {photo: dbPhoto._id}, {new: true});
-    })
-    .then(dbPhoto => {
-      res.json(dbPhoto);
-    })
-    .catch(err => {
-      res.json(err);
-    });
-});
+// app.post('/photos/:id', (req, res) => {
+//   db.Photo.create(req.body)
+//     .then(dbPhoto => {
+//       return db.Photo.post({_id: req.params.id}, {photo: dbPhoto._id}, {new: true});
+//     })
+//     .then(dbPhoto => {
+//       res.json(dbPhoto);
+//     })
+//     .catch(err => {
+//       res.json(err);
+//     });
+// });
 
 // DELETE one photo
-app.delete('/photos/:id', (req, res) => {
-  db.Photo.delete({_id: req.params.id}, {photo: dbPhoto._id})
-  .catch(err => {
-    res.json(err);
-  });
-});
+// app.delete('/photos/:id', (req, res) => {
+//   db.Photo.delete({_id: req.params.id}, {photo: dbPhoto._id})
+//   .catch(err => {
+//     res.json(err);
+//   });
+// });
 
 app.listen(PORT, () => {
   console.log(`App running on Port ${PORT}!`);
