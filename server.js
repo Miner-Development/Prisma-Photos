@@ -24,7 +24,7 @@ mongoose.connect('mongodb://localhost/prisma');
 
 // GET one photo
 app.get('/photos/:id', (req, res) => {
-  db.Photo.findOne({_id: req.params.id})
+  db.prism_db.Photo.findOne({_id: req.params.id})
     .then(dbPhoto => {
       res.json(dbPhoto);
     })
