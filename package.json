@@ -1,5 +1,5 @@
 {
-  "name": "Prisma-Photos",
+  "name": "Prisma Photos",
   "version": "1.0.0",
   "description": "Prisma Photography website with MongoDB photo storage",
   "main": "server.js",
