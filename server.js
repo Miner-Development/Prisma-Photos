@@ -20,76 +20,86 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Use express.static to serve the public folder as a static directory
 app.use(express.static("public"));
 
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/prisma";
+// Connect to the Mongo DB
+mongoose.connect("mongodb://localhost/populatedb");
 
-mongoose.Promise = Promise;
-mongoose.connect(MONGODB_URI);
+// When the server starts, create and save a new User document to the db
+// The "unique" rule in the User model's schema will prevent duplicate users from being added to the server
+db.User.create({ name: "Ernest Hemingway" })
+  .then((dbUser) => {
+    console.log(dbUser);
+  })
+  .catch((err) => {
+    console.log(err.message);
+  });
 
-var PORT = process.env.PORT || 3000;
-
-// app.use(express.static('public'));
-
-mongoose.connect('mongodb://localhost/prisma');
-// mongoose.connect
+// Routes
 
 // Route for retrieving all Notes from the db
-app.get("/reviews", function(req, res) {
+app.get("/notes", (req, res) => {
   // Find all Notes
-  db.reviews.find({})
-    .then(function(dbNote) {
+  db.Note.find({})
+    .then((dbNote) => {
       // If all Notes are successfully found, send them back to the client
       res.json(dbNote);
     })
-    .catch(function(err) {
+    .catch((err) => {
       // If an error occurs, send the error back to the client
       res.json(err);
     });
 });
 
-
-app.post('/reviews', (req, res) => {
-  console.log( req.body );
+// Route for retrieving all Users from the db
+app.get("/user", (req, res) => {
+  // Find all Users
+  db.User.find({})
+    .then((dbUser) => {
+      // If all Users are successfully found, send them back to the client
+      res.json(dbUser);
+    })
+    .catch((err) => {
+      // If an error occurs, send the error back to the client
+      res.json(err);
+    });
 });
 
+// Route for saving a new Note to the db and associating it with a User
+app.post("/submit", (req, res) => {
+  // Create a new Note in the db
+  db.Note.create(req.body)
+    .then((dbNote) => {
+      // If a Note was created successfully, find one User (there's only one) and push the new Note's _id to the User's `notes` array
+      // { new: true } tells the query that we want it to return the updated User -- it returns the original by default
+      // Since our mongoose query returns a promise, we can chain another `.then` which receives the result of the query
+      return db.User.findOneAndUpdate({}, { $push: { notes: dbNote._id } }, { new: true });
+    })
+    .then((dbUser) => {
+      // If the User was updated successfully, send it back to the client
+      res.json(dbUser);
+    })
+    .catch((err) => {
+      // If an error occurs, send it back to the client
+      res.json(err);
+    });
+});
 
+// Route to get all User's and populate them with their notes
+app.get("/populateduser", (req, res) => {
+  // Find all users
+  db.User.find({})
+    // Specify that we want to populate the retrieved users with any associated notes
+    .populate("notes")
+    .then((dbUser) => {
+      // If able to successfully find and associate all Users and Notes, send them back to the client
+      res.json(dbUser);
+    })
+    .catch((err) => {
+      // If an error occurs, send it back to the client
+      res.json(err);
+    });
+});
 
-// app.get('/reviews/:id', (req, res) => {
-//   db.prism.reviews.getAll()
-// });
-
-// GET one photo
-// app.get('/photos/:id', (req, res) => {
-//   db.prism.Photo.findOne({_id: req.params.id})
-//     .then(dbPhoto => {
-//       res.json(dbPhoto);
-//     })
-//     .catch(err => {
-//       res.json(err);
-//     });
-// });
-
-// POST one photo
-// app.post('/photos/:id', (req, res) => {
-//   db.Photo.create(req.body)
-//     .then(dbPhoto => {
-//       return db.Photo.post({_id: req.params.id}, {photo: dbPhoto._id}, {new: true});
-//     })
-//     .then(dbPhoto => {
-//       res.json(dbPhoto);
-//     })
-//     .catch(err => {
-//       res.json(err);
-//     });
-// });
-
-// DELETE one photo
-// app.delete('/photos/:id', (req, res) => {
-//   db.Photo.delete({_id: req.params.id}, {photo: dbPhoto._id})
-//   .catch(err => {
-//     res.json(err);
-//   });
-// });
-
+// Start the server
 app.listen(PORT, () => {
-  console.log(`App running on Port ${PORT}!`);
+  console.log(`App running on port ${PORT}!`);
 });
