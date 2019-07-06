@@ -1,4 +1,5 @@
 /mongodb/databases/admin/auth.sql
+package-lock.json
 
 # Logs
 logs
