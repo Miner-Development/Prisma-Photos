@@ -26,7 +26,7 @@ app.use(express.static("public"));
 var imgPath = 'public/assets/imgs/DeadPool-Motor-City-Comic-Con-Photo.jpg';
 
 // Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/photos")
+mongoose.connect("mongodb://localhost/prisma")
 mongoose.set('useNewUrlParser', true)
 mongoose.set('useFindAndModify', false)
 mongoose.set('useCreateIndex', true);
