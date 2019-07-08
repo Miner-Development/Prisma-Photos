@@ -23,7 +23,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 // img path
-var imgPath = '/path/to/some/img.png';
+var imgPath = 'public/assets/imgs/DeadPool-Motor-City-Comic-Con-Photo.jpg';
 
 // Connect to the Mongo DB
 mongoose.connect("mongodb://localhost/populatedb");
@@ -155,3 +155,4 @@ app.get("/populateduser", (req, res) => {
 app.listen(PORT, () => {
   console.log(`App running on port ${PORT}!`);
 });
+});});});
