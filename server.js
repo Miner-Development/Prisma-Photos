@@ -40,7 +40,7 @@ mongoose.connection.on('open', function () {
 console.error('mongo is open');
 
 // empty the collection
-A.remove(function (err) {
+A.deleteOne(function (err) {
   if (err) throw err;
 
   console.error('removed old docs');
@@ -55,8 +55,8 @@ A.remove(function (err) {
     console.error('saved img to mongo');
 
     // start a demo server
-    var server = express.createServer();
-    server.get('/', function (req, res, next) {
+
+    app.get('/', function (req, res, next) {
       A.findById(a, function (err, doc) {
         if (err) return next(err);
         res.contentType(doc.img.contentType);
@@ -64,7 +64,7 @@ A.remove(function (err) {
       });
     });
 
-    server.on('close', function () {
+    app.on('close', function () {
       console.error('dropping db');
       mongoose.connection.db.dropDatabase(function () {
         console.error('closing db connection');
