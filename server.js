@@ -26,7 +26,10 @@ app.use(express.static("public"));
 var imgPath = 'public/assets/imgs/DeadPool-Motor-City-Comic-Con-Photo.jpg';
 
 // Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/populatedb");
+mongoose.connect("mongodb://localhost/photos")
+mongoose.set('useNewUrlParser', true)
+mongoose.set('useFindAndModify', false)
+mongoose.set('useCreateIndex', true);
 
 // example schema
 var schema = new Schema({
@@ -57,7 +60,7 @@ A.deleteOne(function (err) {
     // start a demo server
 
     app.get('/', function (req, res, next) {
-      A.findById(a, function (err, doc) {
+      A.findByIdAndUpdate()(a, function (err, doc) {
         if (err) return next(err);
         res.contentType(doc.img.contentType);
         res.send(doc.img.data);
@@ -123,7 +126,7 @@ app.post("/submit", (req, res) => {
       // If a Note was created successfully, find one User (there's only one) and push the new Note's _id to the User's `notes` array
       // { new: true } tells the query that we want it to return the updated User -- it returns the original by default
       // Since our mongoose query returns a promise, we can chain another `.then` which receives the result of the query
-      return db.User.findOneAndUpdate({}, { $push: { notes: dbNote._id } }, { new: true });
+      return db.User.findByIdAndUpdate({}, { $push: { notes: dbNote._id } }, { new: true });
     })
     .then((dbUser) => {
       // If the User was updated successfully, send it back to the client
