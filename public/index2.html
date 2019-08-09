@@ -34,9 +34,140 @@
         width: 200px;
         height: 200px;
       }
+
+      .dark-filter:after {
+		background: rgba(0, 0, 0, 0.76);
+		background: linear-gradient(45deg,rgba(0, 0, 0, 0.76),rgba(0, 0, 0, 0.27));
+		background: -webkit-linear-gradient(135deg,rgba(0, 0, 0, 0.76),rgba(0, 0, 0, 0.27));
+}
+#nav-logo {
+		margin-top: -33px;
+		height: auto;
+		border: 9px solid #ffffff;
+		margin-left: -9px;
+		margin-top: -16px;
+}
+a.nav-link {
+		font-size: 19px !important;
+}
+nav {
+		height: auto;
+}
+p#tagline {
+		margin-top: -5px;
+		margin-left: 19px;
+}
+h1,h2,h3,h4,h5,h6,p,a {
+		font-family: 'Asap Condensed', sans-serif !important;
+}
+div#giving_tree_logo img {
+		width: 100%;
+}
+div#giving_tree_logo {
+		background: white;
+		width: 150px;
+		border-radius: 100px;
+		box-shadow: 0px 0px 10px black;
+		margin-top: -150px;
+		z-index: 1000;
+		position: absolute;
+		right: 0px;
+}
+div#forbidden_fruit_logo {
+		background: #ffffffc7;
+		padding: 38px;
+		border-radius: 50px;
+		max-width: 600px;
+		margin: auto;
+}
+div#forbidden_fruit_logo img {
+		width: 100%;
+}
+.main-raised {
+		background-color: #ffffffd9;
+}
+body {
+		background-image: url('https://storage.googleapis.com/tgtree/forbidden_fruit/images/background.png');
+		background-size: contain;
+}
+img.product_image {
+		width: 100%;
+}
+
     </style>
   </head>
+
   <body>
+
+			<div class="navbar-translate">
+          <a class="navbar-brand">
+            <img id="nav-logo" src="https://static.wixstatic.com/media/93cd93_c8cf139fc3a64eb2837615edc1befd07~mv2.png/v1/fill/w_119,h_153,al_c,q_80,usm_0.66_1.00_0.01/93cd93_c8cf139fc3a64eb2837615edc1befd07~mv2.webp" alt="Prisma Logo"></img>
+            <br><p id="tagline">eyes on your events</p>
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="javascript:void(0)" onclick="scrollToSection('#section-home')">
+                Home 
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="javascript:void(0)" onclick="scrollToSection('#section-jane')">
+                Buy Now
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="javascript:void(0)" onclick="scrollToSection('#section-about')">
+                About	
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="javascript:void(0)" onclick="scrollToSection('#section-faq')">
+                FAQ	
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="javascript:void(0)" onclick="scrollToSection('#section-location')">
+                Where to Find Us 
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="javascript:void(0)" onclick="scrollToSection('#section-contact')">
+                Contact 
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="page-header header-filter clear-filter dark-filter"
+      data-parallax="true"
+      style="background-image: url('https://storage.googleapis.com/tgtree/forbidden_fruit/images/background.png');">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <div id="forbidden_fruit_logo">
+              <img src="https://storage.googleapis.com/tgtree/forbidden_fruit/images/forbidden_fruit_logo.png"></img>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="main main-raised">
+      <div class="section" id="section-home">
+          <div class="row">
+            <div id="giving_tree_logo">
+              <img src="https://storage.googleapis.com/tgtree/forbidden_fruit/images/giving_tree_logo.png"></img>
+            </div>
+          </div>
+
    <nav> Prisma </nav>
       <div id="photoform">
         <form action="/submit" method="post">
@@ -47,9 +178,14 @@
 
           <input type="submit">
           <a href="/notes">See your notes!</a>
+          <br>
           <a href="/user">See your profile!</a>
+          <br>
           <a href="/populateduser">See your profile, populated with notes!</a>
+          <br>
+          <a href="/photos">See your photos</a>
         </form>
       </div>
   </body>
+
 </html>

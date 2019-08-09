@@ -23,7 +23,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 // img path
-var imgPath = 'public/assets/imgs/DeadPool-Motor-City-Comic-Con-Photo.jpg';
+var imgPath = 'public/assets/imgs/escc703.jpg';
 
 // Connect to the Mongo DB
 mongoose.connect("mongodb://localhost/prisma")
@@ -80,13 +80,15 @@ mongoose.connection.on('open', function () {
 
       // When the server starts, create and save a new User document to the db
       // The "unique" rule in the User model's schema will prevent duplicate users from being added to the server
-      db.User.create({ name: "Ernest Hemingway" })
+      db.User.create({ name: "this user" })
         .then((dbUser) => {
           console.log(dbUser);
         })
         .catch((err) => {
           console.log(err.message);
         });
+
+      ///////////////
 
       // Routes
 
@@ -114,6 +116,40 @@ mongoose.connection.on('open', function () {
           })
           .catch((err) => {
             // If an error occurs, send the error back to the client
+            res.json(err);
+          });
+      });
+
+      // Route for retrieving all Photos from the db
+      app.get("/photos", (req, res) => {
+        // Find all Photos
+        db.Photo.find({})
+          .then((dbPhoto) => {
+            // If all Photos are successfully found, send them back to the client
+            res.json(dbPhoto);
+          })
+          .catch((err) => {
+            // If an error occurs, send the error back to the client
+            res.json(err);
+          });
+      });      
+
+      // Route for saving a new Photo to the db and associating it with a User
+      app.post("/submit", (req, res) => {
+        // Create a new Photo in the db
+        db.Photo.create(req.body)
+          .then((dbPhoto) => {
+            // If a Photo was created successfully, find one User (there's only one) and push the new Photo's _id to the User's `notes` array
+            // { new: true } tells the query that we want it to return the updated User -- it returns the original by default
+            // Since our mongoose query returns a promise, we can chain another `.then` which receives the result of the query
+            return db.User.findByIdAndUpdate({}, { $push: { photos: dbPhoto._id } }, { new: true });
+          })
+          .then((dbUser) => {
+            // If the User was updated successfully, send it back to the client
+            res.json(dbUser);
+          })
+          .catch((err) => {
+            // If an error occurs, send it back to the client
             res.json(err);
           });
       });
