@@ -9,9 +9,10 @@ var PORT = 3000;
 
 // Require all models
 var db = require("./models");
-// mongodb://heroku_rpxcwmss:955vvv0eoe807eqi8c889givu@ds261277.mlab.com:61277/heroku_rpxcwmss
-// kolt pw XwfX8E6yP68oWOOJ
-// mongo ds012345.mlab.com:56789/prisma -u koltyn -p XwfX8E6yP68oWOOJ
+// var Credentials = require("credentials.js")
+
+// const prod = Credentials.mongo.production.connectionString
+// const dev = credentials.development
 
 
 // Initialize Express
@@ -31,21 +32,23 @@ var imgPath = 'public/assets/imgs/escc703.jpg';
 
 // Connect to the Mongo DB
 
-const MongoClient = require('mongodb').MongoClient;
+// const MongoClient = require('mongodb').MongoClient;
 
 // replace the uri string with your connection string.
 const uri = "mongodb+srv://koltyn:XwfX8E6yP68oWOOJ@prisma-borzh.gcp.mongodb.net/prisma-photo?retryWrites=true&w=majority"
-MongoClient.connect(uri, { useNewUrlParser: true }, function(err, client) {
+mongoose.connect(uri, { useNewUrlParser: true }, function(err, client) {
    if(err) {
         console.log('Error occurred while connecting to MongoDB Atlas...\n',err);
    }
    console.log('Connected to Atlas...');
-   const collection = client.db("prisma-photo").collection("photos");
+  //  const collection = client.db("prisma-photo").collection("photos");
    // perform actions on the collection object
-   client.close();
+  //  client.close();
 });
 
-mongoose.connect("mongodb://localhost/prisma")
+// mongoose.connect("mongodb://localhost/prisma")
+// mongoose.connect(uri, { useNewUrlParser: true },"mongodb+srv://koltyn:XwfX8E6yP68oWOOJ@prisma-borzh.gcp.mongodb.net/prisma-photo?retryWrites=true&w=majority")
+
 mongoose.set('useNewUrlParser', true)
 mongoose.set('useFindAndModify', false)
 mongoose.set('useCreateIndex', true);
@@ -97,7 +100,7 @@ mongoose.connection.on('open', function () {
 
       // When the server starts, create and save a new User document to the db
       // The "unique" rule in the User model's schema will prevent duplicate users from being added to the server
-      db.User.create({ name: "this user" })
+      db.User.create({ name: "Koltyn Tester" })
         .then((dbUser) => {
           console.log(dbUser);
         })
