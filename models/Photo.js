@@ -6,7 +6,10 @@ var Schema = mongoose.Schema;
 // Using the Schema constructor, create a new NoteSchema object
 // This is similar to a Sequelize model
 var photoSchema = new Schema({
-    img: { data: Buffer, contentType: String }
+    // `img` requires fields: data, contentType //
+    img: 
+        { data: Buffer, 
+        contentType: String }
 });
 
 // This creates our model from the above schema, using mongoose's model method

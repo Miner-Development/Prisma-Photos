@@ -22,13 +22,16 @@ var app = express();
 
 // Use morgan logger for logging requests
 app.use(logger("dev"));
+
+app.use(bodyParser.json());
 // Use body-parser for handling form submissions
 app.use(bodyParser.urlencoded({ extended: true }));
 // Use express.static to serve the public folder as a static directory
 app.use(express.static("public"));
 
 // img path
-var imgPath = 'public/assets/imgs/escc703.jpg';
+var imgPath = 'public/assets/imgs/escc703.png';
+// var imgPath = 'public/assets/imgs/escc703.jpg';
 
 // Connect to the Mongo DB
 // const MongoClient = require('mongodb').MongoClient;
@@ -65,22 +68,15 @@ mongoose.connection.on('open', function () {
   console.error('mongo is open');
 
   // empty the collection
-  Photo.deleteOne(function (err) {
-    if (err) throw err;
+  // Photo.deleteOne(function (err) {
+    // if (err) throw err;
 
-    console.error('removed old docs');
+    // console.error('removed old docs');
 
-    // store an img in binary in mongo
-    var photo = new Photo;
-    photo.img.data = fs.readFileSync(imgPath);
-    photo.img.contentType = 'image/png';
-    photo.save(function (err, photo) {
-      if (err) throw err;
 
-      console.error('saved img to mongo');
 
       app.get('/', function (req, res, next) {
-        Photo.findByIdAndUpdate()(photo, function (err, doc) {
+        db.Photo.findByIdAndUpdate()(photo, function (err, doc) {
           if (err) return next(err);
           res.contentType(doc.img.contentType);
           res.send(doc.img.data);
@@ -100,7 +96,7 @@ mongoose.connection.on('open', function () {
 
       // When the server starts, create and save a new User document to the db
       // The "unique" rule in the User model's schema will prevent duplicate users from being added to the server
-      db.User.create({ name: "Koltyn Tester" })
+      db.User.create({ name: "Koltyn 144am" })
         .then((dbUser) => {
           console.log(dbUser);
         })
@@ -126,7 +122,7 @@ mongoose.connection.on('open', function () {
           });
       });
 
-      // Route for retrieving all Users from the db
+      // Route for retrieving all Users from the db (aka www.xxx.com/user)
       app.get("/user", (req, res) => {
         // Find all Users
         db.User.find({})
@@ -155,7 +151,16 @@ mongoose.connection.on('open', function () {
       });
 
       // Route for saving a new Photo to the db and associating it with a User
-      app.post("/submit", (req, res) => {
+    
+      // storing an img in binary in mongo
+    var photo = new Photo;
+    photo.img.data = fs.readFileSync(imgPath);
+    photo.img.contentType = 'image/png';
+    photo.save(function (err, photo) {
+      if (err) throw err;
+
+      console.error('saved img to mongo');
+      app.post("/submitphoto", (req, res) => {
         // Create a new Photo in the db
         db.Photo.create(req.body)
           .then((dbPhoto) => {
@@ -214,6 +219,6 @@ mongoose.connection.on('open', function () {
       app.listen(PORT, () => {
         console.log(`App running on port ${PORT}`);
       });
-    });
+    });  
   });
-});
+
