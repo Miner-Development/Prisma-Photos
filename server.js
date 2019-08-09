@@ -37,22 +37,22 @@ var schema = new Schema({
 });
 
 // our model
-var A = mongoose.model('A', schema);
+var Photo = mongoose.model('Photo', schema);
 
 mongoose.connection.on('open', function () {
   console.error('mongo is open');
 
   // empty the collection
-  A.deleteOne(function (err) {
+  Photo.deleteOne(function (err) {
     if (err) throw err;
 
     console.error('removed old docs');
 
     // store an img in binary in mongo
-    var a = new A;
-    a.img.data = fs.readFileSync(imgPath);
-    a.img.contentType = 'image/png';
-    a.save(function (err, a) {
+    var photo = new Photo;
+    photo.img.data = fs.readFileSync(imgPath);
+    photo.img.contentType = 'image/png';
+    photo.save(function (err, photo) {
       if (err) throw err;
 
       console.error('saved img to mongo');
@@ -60,7 +60,7 @@ mongoose.connection.on('open', function () {
       // start a demo server
 
       app.get('/', function (req, res, next) {
-        A.findByIdAndUpdate()(a, function (err, doc) {
+        Photo.findByIdAndUpdate()(photo, function (err, doc) {
           if (err) return next(err);
           res.contentType(doc.img.contentType);
           res.send(doc.img.data);
