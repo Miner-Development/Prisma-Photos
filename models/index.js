@@ -2,7 +2,6 @@
 
 module.exports = {
   Note: require("./Note"),
-  User: require("./User"),
-  // ,
-  // Photo: require("./Photo")
+  User: require("./User")
+  // ,Photo: require("./Photo")
 };
