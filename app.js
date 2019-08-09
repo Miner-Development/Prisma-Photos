@@ -9,6 +9,10 @@ var PORT = 3000;
 
 // Require all models
 var db = require("./models");
+// mongodb://heroku_rpxcwmss:955vvv0eoe807eqi8c889givu@ds261277.mlab.com:61277/heroku_rpxcwmss
+// kolt pw XwfX8E6yP68oWOOJ
+// mongo ds012345.mlab.com:56789/prisma -u koltyn -p XwfX8E6yP68oWOOJ
+
 
 // Initialize Express
 var app = express();
@@ -26,6 +30,21 @@ app.use(express.static("public"));
 var imgPath = 'public/assets/imgs/escc703.jpg';
 
 // Connect to the Mongo DB
+
+const MongoClient = require('mongodb').MongoClient;
+
+// replace the uri string with your connection string.
+const uri = "mongodb+srv://koltyn:XwfX8E6yP68oWOOJ@prisma-borzh.gcp.mongodb.net/prisma-photo?retryWrites=true&w=majority"
+MongoClient.connect(uri, { useNewUrlParser: true }, function(err, client) {
+   if(err) {
+        console.log('Error occurred while connecting to MongoDB Atlas...\n',err);
+   }
+   console.log('Connected to Atlas...');
+   const collection = client.db("prisma-photo").collection("photos");
+   // perform actions on the collection object
+   client.close();
+});
+
 mongoose.connect("mongodb://localhost/prisma")
 mongoose.set('useNewUrlParser', true)
 mongoose.set('useFindAndModify', false)
@@ -56,8 +75,6 @@ mongoose.connection.on('open', function () {
       if (err) throw err;
 
       console.error('saved img to mongo');
-
-      // start a demo server
 
       app.get('/', function (req, res, next) {
         Photo.findByIdAndUpdate()(photo, function (err, doc) {
