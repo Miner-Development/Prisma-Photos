@@ -31,18 +31,18 @@ app.use(express.static("public"));
 var imgPath = 'public/assets/imgs/escc703.jpg';
 
 // Connect to the Mongo DB
-
 // const MongoClient = require('mongodb').MongoClient;
 
 // replace the uri string with your connection string.
 const uri = "mongodb+srv://koltyn:XwfX8E6yP68oWOOJ@prisma-borzh.gcp.mongodb.net/prisma-photo?retryWrites=true&w=majority"
-mongoose.connect(uri, { useNewUrlParser: true }, function(err, client) {
-   if(err) {
-        console.log('Error occurred while connecting to MongoDB Atlas...\n',err);
-   }
-   console.log('Connected to Atlas...');
+// const uri = "mongodb://adam-miner:LwPrFZJOrqWI0Lkw@ds261277.mlab.com:61277/prisma" // HEROKU SHIT
+mongoose.connect(uri, { useNewUrlParser: true }, function (err, client) {
+  if (err) {
+    console.log('Error occurred while connecting to MongoDB Atlas...\n', err);
+  }
+  console.log('Connected to Atlas...');
   //  const collection = client.db("prisma-photo").collection("photos");
-   // perform actions on the collection object
+  // perform actions on the collection object
   //  client.close();
 });
 
@@ -152,7 +152,7 @@ mongoose.connection.on('open', function () {
             // If an error occurs, send the error back to the client
             res.json(err);
           });
-      });      
+      });
 
       // Route for saving a new Photo to the db and associating it with a User
       app.post("/submit", (req, res) => {
@@ -212,7 +212,7 @@ mongoose.connection.on('open', function () {
 
       // Start the server
       app.listen(PORT, () => {
-        console.log(`App running on port ${PORT}!`);
+        console.log(`App running on port ${PORT}`);
       });
     });
   });
