@@ -96,7 +96,7 @@ mongoose.connection.on('open', function () {
 
       // When the server starts, create and save a new User document to the db
       // The "unique" rule in the User model's schema will prevent duplicate users from being added to the server
-      db.User.create({ name: "Koltyn XXXXXX" })
+      db.User.create({ name: "Koltyn 144am" })
         .then((dbUser) => {
           console.log(dbUser);
         })
